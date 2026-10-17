@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Олимпиада</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="olympiad">
+    <h1>Олимпиада</h1>
+
+    <form id="participants-form" method="post" action="scores.php" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="participants">Участники</label>
+        <input
+          class="form-control"
+          id="participants"
+          name="participants"
+          type="text"
+          placeholder="Введите имена участников через запятую"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          lang="ru"
+          aria-describedby="participants-error"
+        >
+        <div class="invalid-feedback" id="participants-error"></div>
+      </div>
+      <div class="add-row">
+        <button class="btn btn-primary" id="add-button" type="submit">Добавить</button>
+      </div>
+    </form>
+
+    <div class="table-responsive d-none" id="results">
+      <table class="table table-striped table-hover results-table mb-0">
+        <thead>
+          <tr>
+            <th class="col-id" scope="col" aria-sort="none">
+              <button class="sort-btn" type="button" data-sort="id">
+                id
+                <span class="sort-icon" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th scope="col" aria-sort="none">
+              <button class="sort-btn" type="button" data-sort="name">
+                имя
+                <span class="sort-icon" aria-hidden="true">↕</span>
+              </button>
+            </th>
+            <th class="col-score" scope="col" aria-sort="none">
+              <button class="sort-btn" type="button" data-sort="score">
+                очки
+                <span class="sort-icon" aria-hidden="true">↕</span>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="participants-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

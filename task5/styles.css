@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  background: #eef3f7;
+  color: #1c2833;
+}
+
+.olympiad {
+  width: min(100%, 42rem);
+  margin-block: auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  border-top: 4px solid #0b4f8a;
+  box-shadow: 0 12px 32px rgba(22, 50, 79, 0.08);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.add-row {
+  text-align: center;
+}
+
+#add-button {
+  min-width: 10rem;
+  --bs-btn-bg: #0b4f8a;
+  --bs-btn-border-color: #0b4f8a;
+  --bs-btn-hover-bg: #083e6c;
+  --bs-btn-hover-border-color: #083e6c;
+  --bs-btn-active-bg: #07355d;
+  --bs-btn-active-border-color: #07355d;
+  --bs-btn-disabled-bg: #0b4f8a;
+  --bs-btn-disabled-border-color: #0b4f8a;
+}
+
+#results {
+  margin-top: 1.75rem;
+}
+
+.results-table {
+  margin-bottom: 0;
+}
+
+.results-table thead th {
+  padding: 0;
+  background: #e7eef5;
+  color: #16324f;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.col-id {
+  width: 6.5rem;
+}
+
+.col-score {
+  width: 7.5rem;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-btn:hover {
+  background: rgba(11, 79, 138, 0.08);
+}
+
+.sort-btn:focus-visible {
+  outline: 2px solid #0b4f8a;
+  outline-offset: -2px;
+}
+
+.sort-btn[data-direction="ascending"],
+.sort-btn[data-direction="descending"] {
+  color: #0b4f8a;
+}
+
+.sort-icon {
+  flex: 0 0 auto;
+  opacity: 0.45;
+  font-size: 0.85em;
+}
+
+.sort-btn[data-direction="ascending"] .sort-icon,
+.sort-btn[data-direction="descending"] .sort-icon {
+  opacity: 1;
+}
+
+.results-table td:nth-child(2) {
+  word-break: break-word;
+}
+
+.noscript {
+  margin: 1rem 0 0;
+  color: #8a3b12;
+}
+
+@media (max-width: 576px) {
+  .olympiad {
+    padding: 1.5rem 1rem;
+  }
+
+  #add-button {
+    width: 100%;
+  }
+
+  .sort-btn {
+    padding: 0.65rem 0.5rem;
+  }
+}

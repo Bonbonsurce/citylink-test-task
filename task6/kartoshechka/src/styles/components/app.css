@@ -1,0 +1,8 @@
+.app {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app main {
+  overflow-x: hidden;
+}

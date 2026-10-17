@@ -1,0 +1,40 @@
+1)
+mysql> select distinct users.* from users join orders on users.id = orders.user_id;
++----+--------+-------------+---------------------+---------------------+
+| id | name   | birthday_at | created_at          | updated_at          |
++----+--------+-------------+---------------------+---------------------+
+|  1 | alex73 | 1982-10-11  | 2026-10-17 15:12:43 | 2026-10-17 15:12:43 |
+|  2 | admin  | 1990-01-01  | 2026-10-17 15:12:43 | 2026-10-17 15:12:43 |
++----+--------+-------------+---------------------+---------------------+
+2 rows in set (0,00 sec)
+
+2)
+mysql> select products.*, catalogs.name as catalog_name from products join catalogs on products.catalog_id = catalogs.id;
++----+------------+------------+-------+------------+---------------------+---------------------+---------------+
+| id | name       | desription | price | catalog_id | created_at          | updated_at          | catalog_name  |
++----+------------+------------+-------+------------+---------------------+---------------------+---------------+
+|  1 | Intel 8080 |            |  8.00 |          1 | 2026-10-17 15:30:15 | 2026-10-17 15:30:15 | Processors    |
+|  2 | Intel 8086 |            |  9.00 |          1 | 2026-10-17 15:30:15 | 2026-10-17 15:30:15 | Processors    |
+|  3 | MSI 123    |            | 34.00 |          2 | 2026-10-17 15:30:15 | 2026-10-17 15:30:15 | Mother boards |
++----+------------+------------+-------+------------+---------------------+---------------------+---------------+
+3 rows in set (0,01 sec)
+
+3)
+start transaction;
+
+insert into sample.users (name, birthday_at, created_at, updated_at)
+select name, birthday_at, created_at, updated_at from shop.users where id = 1;
+
+delete from shop.users where id = 1;
+
+commit;
+
+4)
+select users.*
+from users
+join orders on orders.user_id = users.id
+where users.birthday_at <= CURDATE() - INTERVAL 30 YEAR and orders.created_at >= CURDATE() - INTERVAL 6 MONTH
+group by users.id
+having count(orders.id) >= 3
+order by RAND()
+limit 1;
