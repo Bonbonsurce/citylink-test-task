@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth overflow-x-hidden;
+  }
+
+  body {
+    @apply m-0 overflow-x-hidden font-sans text-base leading-normal text-text antialiased bg-white;
+  }
+
+  img {
+    @apply block h-auto max-w-full;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button {
+    @apply cursor-pointer border-0 bg-transparent font-[inherit];
+  }
+
+  ul {
+    @apply m-0 list-none p-0;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-container px-4 md:px-6;
+  }
+
+  .menu-enter-active,
+  .menu-leave-active {
+    @apply transition-opacity duration-300 ease-out;
+  }
+
+  .menu-enter-from,
+  .menu-leave-to {
+    @apply opacity-0;
+  }
+
+  .nav-link-underline {
+    @apply relative pb-1.5 text-sm font-medium text-white;
+  }
+
+  .nav-link-underline::after {
+    content: '';
+    @apply absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-accent-hover transition-transform duration-200;
+  }
+
+  .nav-link-underline:hover::after,
+  .nav-link-underline--active::after {
+    @apply scale-x-100;
+  }
+
+  .visually-hidden {
+    @apply absolute m-[-0.0625rem] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .about-potato-left {
+    @apply pointer-events-none absolute z-[1] hidden object-contain;
+    width: 105px;
+    left: -96px;
+    top: -8px;
+    opacity: 0.92;
+    filter: blur(1px);
+    transform: rotate(-42deg);
+  }
+
+  @media (min-width: 59.375rem) {
+    .about-potato-left {
+      @apply block;
+    }
+  }
+
+  @media (min-width: 68.75rem) {
+    .about-potato-left {
+      width: 115px;
+      left: -128px;
+    }
+  }
+
+  .about-chef-img {
+    @apply -mb-px block w-full max-w-[23.75rem] object-contain;
+    transform: translate(clamp(0.75rem, 2vw, 1.75rem), -2.625rem);
+  }
+
+  @media (min-width: 59.375rem) {
+    .about-chef-img {
+      transform: translate(clamp(0.75rem, 2vw, 1.75rem), clamp(-1.25rem, -3vw, -1.625rem));
+    }
+  }
+
+  @media (min-width: 68.75rem) {
+    .about-chef-img {
+      max-width: 25rem;
+      transform: translate(2.25rem, -1.625rem);
+    }
+  }
+
+  .about-request-potato-right {
+    @apply pointer-events-none absolute z-[1] hidden object-contain;
+    transform: scaleX(-1) rotate(-28.93deg);
+  }
+
+  @media (min-width: 59.375rem) {
+    .about-request-potato-right {
+      @apply block;
+      width: 220px;
+      top: 40%;
+      right: max(0px, calc(50% - 580px));
+    }
+  }
+
+  @media (min-width: 68.75rem) {
+    .about-request-potato-right {
+      width: 250px;
+      top: 36%;
+      right: max(0px, calc(50% - 620px));
+    }
+  }
+}

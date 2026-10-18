@@ -1,7 +1,9 @@
 <template>
-  <footer class="app-footer">
-    <div class="container app-footer__inner">
-      <p class="app-footer__brand">{{ brandName }}</p>
+  <footer class="bg-white py-8 md:py-12">
+    <div class="site-container flex flex-col items-center gap-6">
+      <p class="m-0 text-[1.375rem] font-extrabold tracking-wide text-text md:text-[1.75rem]">
+        {{ brandName }}
+      </p>
       <SocialLinks />
     </div>
   </footer>

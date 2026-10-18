@@ -1,37 +1,41 @@
 <template>
-  <section id="prices" class="prices">
-    <div class="container prices__inner">
-      <SectionTitle class="prices__title">Цены</SectionTitle>
+  <section id="prices" class="bg-white py-16 md:py-20">
+    <div class="site-container text-center">
+      <SectionTitle class="!text-[2rem] !font-extrabold max-md:!text-[2rem] md:!text-[2.5rem]">
+        Цены
+      </SectionTitle>
 
       <div
-        class="prices__carousel"
+        class="mx-auto flex max-w-[40rem] items-center justify-center gap-4 md:gap-6"
         @touchstart.passive="onTouchStart"
         @touchend="onTouchEnd"
       >
         <button
           type="button"
-          class="prices__arrow prices__arrow--prev"
+          class="flex h-20 w-20 shrink-0 items-center justify-center text-[5rem] font-light leading-none text-accent-hover md:h-24 md:w-24 md:text-[6rem]"
           aria-label="Предыдущий товар"
           @click="prev"
         >
           ‹
         </button>
 
-        <div class="prices__slide">
-          <div class="prices__image-box">
+        <div class="min-w-0 flex-1">
+          <div
+            class="mx-auto mb-6 flex h-[17.5rem] max-w-[20rem] items-center justify-center md:h-[20rem]"
+          >
             <img
               :src="currentProduct.image"
               :alt="currentProduct.name"
-              class="prices__image"
+              class="h-auto max-h-full w-auto max-w-full object-contain"
             />
           </div>
-          <p class="prices__name">{{ currentProduct.name }}</p>
-          <p class="prices__price">{{ currentProduct.price }}</p>
+          <p class="mb-2 text-lg font-medium text-text">{{ currentProduct.name }}</p>
+          <p class="m-0 text-4xl font-light text-accent md:text-[2.625rem]">{{ currentProduct.price }}</p>
         </div>
 
         <button
           type="button"
-          class="prices__arrow prices__arrow--next"
+          class="flex h-20 w-20 shrink-0 items-center justify-center text-[5rem] font-light leading-none text-accent-hover md:h-24 md:w-24 md:text-[6rem]"
           aria-label="Следующий товар"
           @click="next"
         >
@@ -39,13 +43,13 @@
         </button>
       </div>
 
-      <div class="prices__dots" role="tablist" aria-label="Выбор товара">
+      <div class="mt-6 flex justify-center gap-2.5 md:hidden" role="tablist" aria-label="Выбор товара">
         <button
           v-for="(product, index) in products"
           :key="product.id"
           type="button"
-          class="prices__dot"
-          :class="{ 'prices__dot--active': index === currentIndex }"
+          class="h-2.5 w-2.5 rounded-full p-0 transition-colors duration-200"
+          :class="index === currentIndex ? 'bg-accent-hover' : 'bg-[#d0d0d0]'"
           :aria-label="product.name"
           :aria-selected="index === currentIndex"
           @click="goTo(index)"

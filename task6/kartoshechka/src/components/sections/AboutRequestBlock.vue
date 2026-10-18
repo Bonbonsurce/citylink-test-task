@@ -1,9 +1,9 @@
 <template>
-  <div class="about-request">
+  <div class="relative overflow-hidden">
     <img
       :src="potatoRight"
       alt=""
-      class="about-request__potato-right"
+      class="about-request-potato-right"
       aria-hidden="true"
     />
 

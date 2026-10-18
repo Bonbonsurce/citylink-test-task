@@ -1,9 +1,12 @@
 <template>
-  <a href="#" class="app-logo" aria-label="Картошечка — на главную" @click.prevent="scrollTop">
+  <a
+    href="#"
+    class="inline-flex items-center text-white max-md:h-[3.5625rem]"
+    aria-label="Картошечка — на главную"
+    @click.prevent="scrollTop"
+  >
     <svg
-      class="app-logo__icon"
-      width="61"
-      height="67"
+      class="h-auto w-10 max-md:w-[3.25rem]"
       viewBox="0 0 61 67"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

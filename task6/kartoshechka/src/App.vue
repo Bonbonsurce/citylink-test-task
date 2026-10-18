@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="min-h-screen overflow-x-hidden">
     <AppHeader
       :active-section="activeSection"
       @toggle-menu="menuOpen = true"
@@ -11,7 +11,7 @@
       @navigate="onNavigate"
     />
 
-    <main>
+    <main class="overflow-x-hidden">
       <HeroSection />
       <PricesSection />
       <VideoSection />

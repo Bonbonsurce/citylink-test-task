@@ -1,38 +1,48 @@
 <template>
   <Teleport to="body">
     <Transition name="menu">
-      <div v-if="open" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Меню">
+      <div
+        v-if="open"
+        class="fixed inset-0 z-[200] flex flex-col overflow-hidden overscroll-none bg-white px-4 pb-10 pt-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Меню"
+      >
         <button
           type="button"
-          class="mobile-menu__close"
+          class="relative mb-12 ml-auto h-8 w-8"
           aria-label="Закрыть меню"
           @click="$emit('close')"
         >
-          <span />
-          <span />
+          <span
+            class="absolute left-1/2 top-1/2 block h-0.5 w-6 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-text"
+          />
+          <span
+            class="absolute left-1/2 top-1/2 block h-0.5 w-6 -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-text"
+          />
         </button>
 
-        <nav class="mobile-menu__nav">
+        <nav class="flex flex-1 flex-col items-start justify-start gap-9 pl-10 pr-6 pt-2">
           <a
             v-for="item in navItems"
             :key="item.id"
             :href="item.href"
-            class="mobile-menu__link"
+            class="text-2xl font-medium text-text"
             @click.prevent="onNavClick(item.href)"
           >
             {{ item.label }}
           </a>
           <a
             :href="requestHref"
-            class="mobile-menu__link"
+            class="text-2xl font-medium text-text"
             @click.prevent="onNavClick(requestHref)"
           >
             Оставить заявку
           </a>
         </nav>
 
-        <div class="mobile-menu__footer">
-          <p class="mobile-menu__brand">{{ brandName }}</p>
+        <div class="text-center">
+          <p class="mb-5 text-[1.375rem] font-extrabold tracking-wide">{{ brandName }}</p>
           <SocialLinks variant="menu" />
         </div>
       </div>
@@ -41,11 +51,10 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, watch } from 'vue'
+import { nextTick, onMounted, onUnmounted, watch } from 'vue'
 import SocialLinks from '@/components/ui/SocialLinks.vue'
 import { navItems, requestHref } from '@/data/navigation'
 import { brandName } from '@/data/content'
-import { scrollToAnchor } from '@/composables/useAnchorNav'
 
 const props = defineProps({
   open: {
@@ -57,6 +66,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'navigate'])
 
 let savedScrollY = 0
+let scrollTargetAfterClose = null
 
 function lockScroll() {
   savedScrollY = window.scrollY
@@ -81,10 +91,19 @@ function unlockScroll() {
 }
 
 function onNavClick(href) {
-  scrollToAnchor(href, () => {
-    emit('navigate', href)
-    emit('close')
-  })
+  scrollTargetAfterClose = href
+  emit('navigate', href)
+  emit('close')
+}
+
+function scrollToSection(href) {
+  const id = href.replace('#', '')
+  const el = document.getElementById(id)
+  if (!el) return
+
+  const offset = 96
+  const top = el.getBoundingClientRect().top + window.scrollY - offset
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
 }
 
 function onKeydown(event) {
@@ -98,9 +117,18 @@ watch(
   (isOpen) => {
     if (isOpen) {
       lockScroll()
-    } else {
-      unlockScroll()
+      return
     }
+
+    unlockScroll()
+
+    const href = scrollTargetAfterClose
+    scrollTargetAfterClose = null
+    if (!href) return
+
+    nextTick(() => {
+      scrollToSection(href)
+    })
   }
 )
 

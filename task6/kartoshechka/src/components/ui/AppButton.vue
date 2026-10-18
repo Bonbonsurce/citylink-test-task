@@ -3,8 +3,8 @@
     :is="tag"
     :type="tag === 'button' ? type : undefined"
     :href="tag === 'a' ? href : undefined"
-    class="app-button"
-    :class="[`app-button--${variant}`, { 'app-button--block': block }]"
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors duration-200"
+    :class="buttonClasses"
     @click="onClick"
   >
     <slot />
@@ -37,6 +37,22 @@ const props = defineProps({
 const emit = defineEmits(['click'])
 
 const tag = computed(() => (props.href ? 'a' : 'button'))
+
+const buttonClasses = computed(() => {
+  const classes = [props.block ? 'w-full' : '']
+
+  if (props.variant === 'filled') {
+    classes.push(
+      'border-0 bg-accent-light px-8 py-3.5 font-semibold text-dark hover:bg-accent-filled-hover'
+    )
+  } else {
+    classes.push(
+      'border border-white bg-transparent px-7 py-3 text-white hover:border-white hover:bg-white hover:text-text'
+    )
+  }
+
+  return classes
+})
 
 function onClick(event) {
   emit('click', event)

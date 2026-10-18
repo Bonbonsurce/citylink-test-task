@@ -1,15 +1,15 @@
 <template>
-  <div class="social-links" :class="{ 'social-links--menu': variant === 'menu' }">
+  <div class="flex items-center justify-center gap-3">
     <button
       v-for="item in links"
       :key="item.name"
       type="button"
-      class="social-links__item"
-      :class="`social-links__item--${item.id}`"
+      class="flex h-10 w-10 items-center justify-center rounded-full bg-social-bg p-0 text-social-icon transition-colors duration-200 hover:text-white"
+      :class="hoverClasses[item.id]"
       :aria-label="item.name"
       @click.prevent
     >
-      <span class="social-links__icon" v-html="item.icon" />
+      <span class="flex h-[1.125rem] w-[1.125rem] [&_svg]:h-full [&_svg]:w-full" v-html="item.icon" />
     </button>
   </div>
 </template>
@@ -21,6 +21,13 @@ defineProps({
     default: 'footer',
   },
 })
+
+const hoverClasses = {
+  vk: 'hover:bg-[#5783c6]',
+  facebook: 'hover:bg-[#3a83f1]',
+  twitter: 'hover:bg-[#52d3fc]',
+  instagram: 'hover:bg-[#ff4f79]',
+}
 
 const links = [
   {
