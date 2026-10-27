@@ -47,9 +47,6 @@ function timeToMinutes(string $time): int
     return $hours * 60 + $minutes;
 }
 
-/**
- * @return list<array{0: int, 1: int}>
- */
 function intervalToDaySegments(string $interval): array
 {
     $start = timeToMinutes(substr($interval, 0, 5));
