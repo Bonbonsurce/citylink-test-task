@@ -25,23 +25,15 @@ function validateIntervalOverlay(string $interval): bool
 {
     global $intervals;
 
-    $newStart = timeToMinutes(substr($interval, 0, 5));
-    $newEnd = timeToMinutes(substr($interval, 6, 5));
-
-    if ($newEnd < $newStart) {
-        $newEnd += MINUTES_IN_DAY;
-    }
+    $newSegments = intervalToDaySegments($interval);
 
     foreach ($intervals as $existingInterval) {
-        $existStart = timeToMinutes(substr($existingInterval, 0, 5));
-        $existEnd = timeToMinutes(substr($existingInterval, 6, 5));
-
-        if ($existEnd < $existStart) {
-            $existEnd += MINUTES_IN_DAY;
-        }
-
-        if ($newStart < $existEnd && $newEnd > $existStart) {
-            return false;
+        foreach (intervalToDaySegments($existingInterval) as [$existStart, $existEnd]) {
+            foreach ($newSegments as [$newStart, $newEnd]) {
+                if ($newStart < $existEnd && $newEnd > $existStart) {
+                    return false;
+                }
+            }
         }
     }
 
@@ -53,6 +45,24 @@ function timeToMinutes(string $time): int
     [$hours, $minutes] = array_map('intval', explode(':', $time));
 
     return $hours * 60 + $minutes;
+}
+
+/**
+ * @return list<array{0: int, 1: int}>
+ */
+function intervalToDaySegments(string $interval): array
+{
+    $start = timeToMinutes(substr($interval, 0, 5));
+    $end = timeToMinutes(substr($interval, 6, 5));
+
+    if ($end < $start) {
+        return [
+            [$start, MINUTES_IN_DAY],
+            [0, $end],
+        ];
+    }
+
+    return [[$start, $end]];
 }
 
 $formatTests = [
@@ -77,8 +87,8 @@ $overlapTests = [
     ['19:00-20:30', false],
     ['20:00-20:30', true],
     ['22:30-23:00', true],
-    ['01:00-03:00', true],
-    ['00:00-01:00', true],
+    ['01:00-03:00', false],
+    ['00:00-01:00', false],
     ['02:00-03:00', true],
     ['22:00-01:00', false],
     ['23:30-01:00', false],
